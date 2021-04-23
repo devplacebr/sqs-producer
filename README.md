@@ -39,13 +39,13 @@ function sendFifo(input){
 
 // Call standard queue
 send({
-  queueUrl: "strning", // Required
+  queueUrl: "string", // Required
   data: { foo: 'bar' } // Required
 });
 
 // Call fifo queue
 sendFifo({
-  queueUrl: "strning", // Required
+  queueUrl: "string", // Required
   data: { foo: "bar" }, // Required
   messageDeduplicationId: "string", // Optional. Default: generated uuid
   messageGroupId: "string" // Optional. Default: process.env.APP_NAME | 'sqs-producer'
