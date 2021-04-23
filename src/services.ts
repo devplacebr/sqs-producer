@@ -12,11 +12,11 @@ export class SqsService {
   });
 
   async send(input: MessageInput) {
-    const {queueUrl} = input;
+    const {queueUrl, data} = input;
 
     const command = new SendMessageCommand({
       QueueUrl: queueUrl,
-      MessageBody: JSON.stringify(input),
+      MessageBody: JSON.stringify(data),
     });
 
     await this.client.send(command);
@@ -28,13 +28,14 @@ export class SqsService {
       queueUrl,
       messageGroupId = APP_NAME,
       messageDeduplicationId = uuid(),
+      data,
     } = input;
 
     const command = new SendMessageCommand({
       QueueUrl: queueUrl,
       MessageDeduplicationId: messageDeduplicationId,
       MessageGroupId: messageGroupId,
-      MessageBody: JSON.stringify(input),
+      MessageBody: JSON.stringify(data),
     });
 
     await this.client.send(command);

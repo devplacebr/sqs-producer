@@ -1,6 +1,6 @@
 export interface MessageInput {
   queueUrl: string;
-  data: Record<string, unknown>;
+  data: unknown; // Json object
 }
 export interface MessageInputFifo extends MessageInput {
   messageDeduplicationId?: string;
