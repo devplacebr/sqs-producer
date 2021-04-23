@@ -4,10 +4,10 @@ import {MessageInput, MessageInputFifo} from './interfaces';
 
 export class SqsService {
   private readonly client = new SQS({
-    region: process.env.AWS_REGION || 'us-east-1',
+    region: process.env.AWS_SQS_REGION || 'us-east-1',
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+      accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AWS_SQS_SECRET_ACCESS_KEY as string,
     },
   });
 
