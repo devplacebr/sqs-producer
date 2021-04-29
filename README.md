@@ -23,18 +23,14 @@ Configure your env vars:
 ## USE
 
 ```typescript
-import { SqsService } from '@devplace/sqs-producer'
+const { SqsService } = require('@devplace/sqs-producer')
+// import { SqsService } from '@devplace/sqs-producer' // Typescript approach
 
 const client = new SqsService()
 
 // function send(input: MessageInput){ // Typescript approach
 function send(input){
   await client.send(input);
-}
-
-// function sendFifo(input: MessageInputFifo){ // Typescript approach
-function sendFifo(input){
-  await client.sendFifo(input);
 }
 
 // Call standard queue
@@ -44,10 +40,16 @@ send({
 });
 
 // Call fifo queue
-sendFifo({
+send({
   queueUrl: "string", // Required
   data: { foo: "bar" }, // Required
-  messageDeduplicationId: "string", // Optional. Default: generated uuid
-  messageGroupId: "string" // Optional. Default: process.env.APP_NAME | 'sqs-producer'
+  isFifo: true // Will create a 'messageDeduplicationId' and a 'messageGroupId' automaticalky (AWS PARAMETERS)
 });
+
+// Call batch
+send({
+  queueUrl: "string", // Required
+  data: [{ foo: 'bar' }, { foo2: 'bar2' }] // Chunked automatically (AWS limit is 10 jobs per call)
+});
+
 ```
