@@ -1,6 +1,6 @@
 {
   "name": "@devplace/sqs-producer",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Devplace SQS producer lib",
   "main": "lib/src/index.js",
   "license": "MIT",
