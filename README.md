@@ -1,6 +1,6 @@
 # DEVPLACE SQS PRODUCER
 
-Devplace SQS producer for fifo and standard queues.
+SQS producer for fifo and standard queues.
 
 Usefull to send async jobs.
 
