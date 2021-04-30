@@ -5,7 +5,7 @@ import {
 } from '@aws-sdk/client-sqs';
 import {v4 as uuid} from 'uuid';
 import {MessageInput} from './interfaces';
-import {chunkData} from './helpers';
+import {chunkData, isFifoQueue} from './helpers';
 
 export class SqsService {
   private readonly client: SQS;
@@ -41,14 +41,14 @@ export class SqsService {
 
   private async sendSingle(input: MessageInput) {
     const {APP_NAME = 'sqs-producer'} = process.env;
-    const {queueUrl, data, isFifo = false} = input;
+    const {queueUrl, data} = input;
 
     const command = new SendMessageCommand({
       QueueUrl: queueUrl,
       MessageBody: JSON.stringify(data),
     });
 
-    if (isFifo) {
+    if (isFifoQueue(queueUrl)) {
       command.input.MessageGroupId = APP_NAME;
       command.input.MessageDeduplicationId = uuid();
     }
@@ -58,7 +58,7 @@ export class SqsService {
 
   private sendBatch(input: MessageInput) {
     const {APP_NAME = 'sqs-producer'} = process.env;
-    const {queueUrl, isFifo = false} = input;
+    const {queueUrl} = input;
     const data = input.data as unknown[];
     if (data.length === 0) return;
     const chunked = chunkData(data, 10);
@@ -66,7 +66,7 @@ export class SqsService {
       return new SendMessageBatchCommand({
         QueueUrl: queueUrl,
         Entries: m.map(d => {
-          if (isFifo) {
+          if (isFifoQueue(queueUrl)) {
             return {
               Id: uuid(),
               MessageGroupId: APP_NAME,

@@ -1,3 +1,4 @@
+import {extname} from 'path';
 export function chunkData(array: unknown[], chunk = 10) {
   let i, j;
   const newArray = [];
@@ -6,4 +7,13 @@ export function chunkData(array: unknown[], chunk = 10) {
   }
 
   return newArray;
+}
+
+export function isFifoQueue(queueUrl: string) {
+  try {
+    return extname(queueUrl) === '.fifo';
+  } catch (error) {
+    console.log('LOG ~ isFifoQueue ~ error', error);
+    return false;
+  }
 }
