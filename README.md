@@ -53,3 +53,19 @@ send({
 });
 
 ```
+
+
+## IAM Policy example for send SQS Messages
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sqs:SendMessage",
+            "Resource": "*"
+        }
+    ]
+}
+```
