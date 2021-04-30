@@ -1,6 +1,6 @@
 # DEVPLACE SQS PRODUCER
 
-Devplace SQS producer for fifo and standard queues.
+SQS producer for fifo and standard queues.
 
 Usefull to send async jobs.
 
@@ -53,7 +53,6 @@ send({
 });
 
 ```
-
 
 ## IAM Policy example for send SQS Messages
 
