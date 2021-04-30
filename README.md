@@ -35,20 +35,19 @@ function send(input){
 
 // Call standard queue
 send({
-  queueUrl: "string", // Required
+  queueUrl: "queueUrl", // Required
   data: { foo: 'bar' } // Required
 });
 
-// Call fifo queue
+// Call fifo queue (detected automatically by the URL of queue)
 send({
-  queueUrl: "string", // Required
+  queueUrl: "queueUrl.fifo", // Required
   data: { foo: "bar" }, // Required
-  isFifo: true // Will create a 'messageDeduplicationId' and a 'messageGroupId' automaticalky (AWS PARAMETERS)
 });
 
 // Call batch
 send({
-  queueUrl: "string", // Required
+  queueUrl: "queueUrl", // Required (or queueUrl.fifo)
   data: [{ foo: 'bar' }, { foo2: 'bar2' }] // Chunked automatically (AWS limit is 10 jobs per call)
 });
 
